@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Orders{% endblock %}
+
+{% block content %}
+
+<section class="admin-orders">
+
+    <div class="admin-header">
+        <h1>Orders</h1>
+        <p>Manage all customer orders</p>
+    </div>
+
+    {% if orders|length == 0 %}
+        <p>No orders found.</p>
+    {% else %}
+
+    <div class="orders-grid">
+
+        {% for order in orders %}
+        <div class="order-card">
+
+            <div class="order-top">
+                <div>
+                    <h3>#{{ order.id }}</h3>
+                    <span class="order-date">{{ order.created_at }}</span>
+                    <p><strong>Ship To:</strong> {{ order.shipping_address }}</p>
+                </div>
+
+                <span class="status {{ order.status|lower }}">
+                    {{ order.status }}
+                </span>
+            </div>
+
+            <div class="order-body">
+                <p><strong>Total:</strong> ${{ "%.2f"|format(order.total) }}</p>
+                <p><strong>User ID:</strong> {{ order.user_id }}</p>
+                <p><strong>Ship To:</strong> {{ order.shipping_address }}</p>
+            </div>
+
+            <div class="order-actions">
+
+                <a class="btn subtle" href="{{ url_for('orders.order_details', order_id=order.id) }}">
+                    View
+                </a>
+
+                {% if order.status not in ["Delivered", "Cancelled"] %}
+                <form method="POST"
+                      action="{{ url_for('orders.cancel_order', order_id=order.id) }}">
+                    <button class="btn danger" type="submit">
+                        Cancel
+                    </button>
+                </form>
+                {% endif %}
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

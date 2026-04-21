@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<section class="admin">
+
+    <h1>Admin Dashboard</h1>
+
+    <a href="/admin/product/add" class="btn primary">Add Product</a>
+    <hr>
+
+    <h2>Products</h2>
+
+    <div class="admin-table">
+
+        {% for p in products %}
+        <div class="admin-row">
+
+            <div>
+                <strong>{{ p[2] }}</strong>
+                <p>${{ "%.2f"|format(p[4]) }}</p>
+            </div>
+
+            <div class="admin-actions">
+                <a href="/admin/product/delete/{{ p[0] }}" class="btn subtle">
+                    Delete
+                </a>
+                    <a href="/admin/product/edit/{{ p[0] }}" class="btn subtle">Edit</a>
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Macrocenter Products{% endblock %}
+
+{% block content %}
+
+<section class="container">
+    <h2 class="section-title">Browse our Best Products</h2>
+    <small>(We sell only the best, don't look too hard.)</small>
+    <div class="grid">
+
+        {% for product in products %}
+            <a href="/product/{{ product.pid }}" style="text-decoration:none; color:inherit;">
+        <div class="card">
+
+            <img class="card-img"
+                 src="/static/media/products/{{ product.image_keyword }}"
+                 onerror="this.onerror=null; this.src='/static/media/products/Macrocenter_fallback.jpg'">
+
+            <h3>{{ product.name }}</h3>
+
+            <p style="color:#6e6e73; font-size:13px;">
+                {{ product.desc }}
+            </p>
+
+            <p class="price">
+                ${{ "%.2f"|format(product.price) }}
+            </p>
+
+            <button class="btn primary full">
+                Buy
+            </button>
+        </div>
+            </a>
+        {% endfor %}
+
+    </div>
+</section>
+
+{% endblock %}
+

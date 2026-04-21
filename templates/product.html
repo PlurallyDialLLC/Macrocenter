@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} - Macrocenter{% endblock %}
+
+{% block content %}
+
+<section class="product-page">
+
+    <div class="product-wrapper">
+
+        <!-- IMAGE -->
+        <div class="product-image">
+            <img src="/static/media/products/{{ product.image_keyword }}"
+                 onerror="this.onerror=null; this.src='/static/media/products/Macrocenter_fallback.jpg'">
+        </div>
+
+        <!-- INFO -->
+        <div class="product-info">
+            <h1>{{ product.name }}</h1>
+
+            <p class="product-desc">
+                {{ product.desc }}
+            </p>
+
+            <p class="product-price">
+                ${{ "%.2f"|format(product.price) }}
+            </p>
+
+
+
+           <form method="POST" action="{{ url_for('cart.add_to_cart', pid=product.pid) }}">
+    <button class="btn primary large">
+        Add to Cart
+    </button>
+</form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

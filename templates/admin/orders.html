@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Orders{% endblock %}
+
+{% block content %}
+
+<section class="admin">
+
+    <h1>Order Management</h1>
+
+    <div class="admin-table">
+
+        {% for o in orders %}
+        <div class="admin-row">
+
+            <div>
+                <strong>Order #{{ o[0] }}</strong>
+                <p>User ID: {{ o[1] }}</p>
+                <p>Total: ${{ "%.2f"|format(o[2]) }}</p>
+                <p>Status: <strong>{{ o[3] }}</strong></p>
+                <p>Date: {{ o[4] }}</p>
+                <p><strong>Ship To:</strong> {{ o[4] }}</p>
+            </div>
+
+            <div>
+
+                <!-- STATUS UPDATE -->
+                <form method="POST" action="{{ url_for('admin.update_order', order_id=o[0]) }}">
+                    <select name="status">
+                        <option value="Processing">Processing</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+
+                    <button class="btn primary" type="submit">
+                        Update
+                    </button>
+                </form>
+
+                <!-- VIEW DETAILS -->
+                <a href="/orders/{{ o[0] }}" class="btn subtle">
+                    View
+                </a>
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

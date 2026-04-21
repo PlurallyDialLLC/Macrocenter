@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Cart - Macrocenter{% endblock %}
+
+{% block content %}
+
+<section class="cart-page">
+
+    <h1>Your Cart</h1>
+
+    {% if items|length == 0 %}
+        <p>Your cart is empty.</p>
+    {% else %}
+
+    <div class="cart-items">
+
+        {% for item in items %}
+        <div class="cart-item">
+
+            <h3>{{ item.name }}</h3>
+
+            <p>Qty: {{ item.qty }}</p>
+            <p>Price: ${{ "%.2f"|format(item.price) }}</p>
+            <p>Subtotal: ${{ "%.2f"|format(item.subtotal) }}</p>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+    <h2>Total: ${{ "%.2f"|format(total) }}</h2>
+
+    <form method="POST" action="/cart/checkout">
+
+    <input type="text" name="shipping_address"
+           placeholder="Shipping Address"
+           required>
+
+    <button type="submit" class="btn primary">
+        Place Order
+    </button>
+
+</form>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

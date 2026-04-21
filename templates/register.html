@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Register - Macrocenter{% endblock %}
+
+{% block content %}
+
+<section class="auth-page">
+
+    <div class="auth-wrapper">
+
+        <div class="auth-box">
+            <h1>Register</h1>
+
+            <form method="POST">
+
+                <div class="form-group">
+                    <input type="text" name="username" placeholder="Username" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+
+                <button type="submit" class="btn primary large">
+                    Create Account
+                </button>
+
+            </form>
+
+            <p class="auth-switch">
+                Already have an account?
+                <a href="{{ url_for('auth.login') }}">Login</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
